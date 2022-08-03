@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "develop" ]
   pull_request:
-    branches: [ "FLP-18_CI/CD-pipeline" ]
+    branches: [ "develop" ]
 
 jobs:
   build:

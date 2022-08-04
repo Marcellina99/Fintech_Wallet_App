@@ -45,10 +45,7 @@ public class User extends BaseClass{
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transactionList;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
-    private Wallet wallet;
+
+
 }

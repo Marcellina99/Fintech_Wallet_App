@@ -48,8 +48,8 @@ public class Transaction extends BaseClass{
     private String flwRef;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    private Wallet wallet;
 
 
 

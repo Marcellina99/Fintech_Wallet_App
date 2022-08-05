@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="fintech-payment-api-sqd11a" target="11" />
+      <module name="fintech-payment-api-sqd11a" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

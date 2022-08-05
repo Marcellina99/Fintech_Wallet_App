@@ -7,7 +7,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 import com.decagon.fintechpaymentapisqd11a.dto.UserDto;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ class MailServiceImplTest {
     private MailServiceImpl mailServiceImpl;
 
     @Test
-    void testSendNotification() throws MailException {
+    void testSendMail() throws MailException {
         doNothing().when(javaMailSender).send((SimpleMailMessage) any());
         mailServiceImpl.sendNotification(
                 new UserDto("Decagon", "Josgolf@yahoo.com", "You have been admitted", "Hello from Decagon"));
@@ -37,7 +36,7 @@ class MailServiceImplTest {
     }
 
     @Test
-    void testSendNotification3() throws MailException {
+    void testSendMailException() throws MailException {
         doThrow(new MailAuthenticationException("Oops! Something bad happened.")).when(javaMailSender).send((SimpleMailMessage) any());
         assertThrows(MailAuthenticationException.class, () -> mailServiceImpl.sendNotification(
                 new UserDto("Decagon", "Josgolf@yahoo", "You have been admitted", "Hello from Decagon")));

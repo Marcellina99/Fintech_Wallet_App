@@ -39,13 +39,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final ConfirmationTokenServiceImpl confirmationTokenService;
 
 
-
-
-
     @Override
     public String createUser(RegistrationRequestDto registrationRequestDto) throws JSONException {
-
-//        MailServiceDto mailServiceDto = new MailServiceDto();
         boolean isValidEmail = emailValidator.test(registrationRequestDto.getEmail());
         if(!isValidEmail) {
             throw new EmailNotValidException("Email Not Valid");
@@ -55,14 +50,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         String link = Constant.TOKEN_LINK + token;
          sendMail(registrationRequestDto.getFirstName(),
                  registrationRequestDto.getEmail(), link);
-
-//        mailServiceDto.setName(registrationRequestDto.getFirstName());
-//        mailServiceDto.setEmailAddress(registrationRequestDto.getEmail());
-//        mailServiceDto.setMessage("Click the link below to verify your email \n " + link);
-//        mailServiceDto.setSubject("Email Verification");
-//        mailService.sendNotification(mailServiceDto);
-
-
         return "Please check your email to verify your account";
     }
 
@@ -76,9 +63,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (confirmationToken.getConfirmedAt() != null){
             throw new ConfirmationTokenException("Email Already Confirmed");
         }
-
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
         if (expiredAt.isBefore(LocalDateTime.now())) {
            Users users = userRepository.findByEmail(confirmationToken.getUsers().getEmail())
                    .orElseThrow(()-> new UserNotFoundException("User Not Found"));
@@ -99,7 +84,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         userService.saveToken(token, users);
     }
-
 
     @Override
     public void sendMail(String name, String email, String link){

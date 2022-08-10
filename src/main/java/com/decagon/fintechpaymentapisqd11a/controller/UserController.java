@@ -25,12 +25,11 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<String> createUserAccount(@Valid @RequestBody RegistrationRequestDto
                                                 requestDto) throws JSONException {
-
         return new ResponseEntity<> (registrationService.createUser(requestDto), HttpStatus.CREATED);
     }
 
     @GetMapping( "/confirm")
-    public String confirmToken(@RequestParam("token") String token ){
-        return registrationService.confirmToken(token);
+    public ResponseEntity<String> confirmToken(@RequestParam("token") String token ){
+        return new ResponseEntity<>(registrationService.confirmToken(token), HttpStatus.OK);
     }
 }

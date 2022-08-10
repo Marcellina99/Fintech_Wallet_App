@@ -16,14 +16,4 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     Optional<Users> findByEmail(String email);
 
-
-//    @Transactional
-//    @Modifying
-//    @Query(
-//            "UPDATE Users a " +
-//                    "SET a.userStatus = com.decagon.fintechpaymentapisqd11a.models.Users.UsersBuilder WHERE a.email = ?1"
-//    )
-//    int enableUser(String email);
-
-
 }

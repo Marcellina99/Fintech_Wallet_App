@@ -44,9 +44,6 @@ public class Users extends BaseClass{
     @Size(min = 6, max = 6)
     private String transactionPin;
 
-//    @Column(nullable = false)
-//    private String token;
-
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus = UserStatus.INACTIVE;
 

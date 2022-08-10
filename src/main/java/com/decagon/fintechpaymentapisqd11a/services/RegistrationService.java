@@ -4,12 +4,13 @@ import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 
-public interface UserService {
+public interface RegistrationService {
 
-    String registerUser(RegistrationRequestDto registrationRequestDto) throws JSONException;
+    String createUser(RegistrationRequestDto registrationRequestDto) throws JSONException;
 
-    void enableUser(String email);
+    String confirmToken(String token);
 
+    void resendEmail(Users users);
 
-    void saveToken(String token, Users users);
+    void sendMail(String name, String email, String link);
 }

@@ -20,4 +20,13 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.of(Optional.of(errorResponseDto));
     }
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(final UserNotFoundException ex) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setMessage(ex.getMessage());
+        errorResponseDto.setDebugMessage("User not found");
+
+        return ResponseEntity.of(Optional.of(errorResponseDto));
+    }
 }

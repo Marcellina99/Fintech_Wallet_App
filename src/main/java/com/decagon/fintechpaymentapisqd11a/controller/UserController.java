@@ -16,7 +16,7 @@ import java.io.IOException;
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
-    @GetMapping("/token/refresh")
+    @GetMapping("/token/refreshToken")
     public ResponseEntity<String> refresh(HttpServletRequest request, HttpServletResponse response) throws IOException {
         userService.refreshToken(request, response);
         return ResponseEntity.ok("done.");

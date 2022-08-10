@@ -4,18 +4,17 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
+import com.decagon.fintechpaymentapisqd11a.enums.DefaultMessage;
+import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
 import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,11 +36,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UserNotFoundException {
         Users users = usersRepository.findByEmail(email);
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
         if(users == null){
-            throw new UsernameNotFoundException("Email not found in database");
+            throw new UserNotFoundException("Email not found in database");
         }else{
             return new User(users.getEmail(),users.getPassword(), Collections.singleton(authority));
         }
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             try{
                 String refresh_token = authorizationHeader.substring("Bearer ".length());
-                Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+                Algorithm algorithm = Algorithm.HMAC256(DefaultMessage.SECRET_KEY.getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String username = decodedJWT.getSubject();

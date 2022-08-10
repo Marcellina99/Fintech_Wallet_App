@@ -35,7 +35,7 @@ class UserServiceImplTest {
 
 
     @Test
-    void testRefreshToken3() throws IOException {
+    void testRefreshTokens() throws IOException {
         DefaultMultipartHttpServletRequest defaultMultipartHttpServletRequest = mock(
                 DefaultMultipartHttpServletRequest.class);
         when(defaultMultipartHttpServletRequest.getHeader((String) any())).thenReturn("https://example.org/example");

@@ -16,4 +16,8 @@ public class ErrorResponseDto {
     private String message;
     private String debugMessage;
     private LocalDateTime time = LocalDateTime.now();
+
+    public ErrorResponseDto(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }

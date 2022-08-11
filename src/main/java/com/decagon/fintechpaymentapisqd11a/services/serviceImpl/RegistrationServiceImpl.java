@@ -7,7 +7,7 @@ import com.decagon.fintechpaymentapisqd11a.exceptions.EmailNotValidException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.TokenNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
-import com.decagon.fintechpaymentapisqd11a.repositories.UserRepository;
+import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.services.RegistrationService;
 import com.decagon.fintechpaymentapisqd11a.token.ConfirmationToken;
 import com.decagon.fintechpaymentapisqd11a.util.Constant;
@@ -27,7 +27,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final UserServiceImpl userService;
     private final EmailValidator emailValidator;
     private final MailServiceImpl mailService;
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
     private final ConfirmationTokenServiceImpl confirmationTokenService;
 
     @Override
@@ -56,7 +56,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
-           Users users = userRepository.findByEmail(confirmationToken.getUsers().getEmail())
+           Users users = usersRepository.findByEmail(confirmationToken.getUsers().getEmail())
                    .orElseThrow(()-> new UserNotFoundException("User Not Found"));
            resendEmail(users);
            return "Verification token expired. Check email for a new verification token";

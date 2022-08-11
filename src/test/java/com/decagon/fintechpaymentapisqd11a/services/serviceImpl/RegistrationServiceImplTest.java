@@ -16,15 +16,13 @@ import com.decagon.fintechpaymentapisqd11a.exceptions.ConfirmationTokenException
 import com.decagon.fintechpaymentapisqd11a.exceptions.EmailNotValidException;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
 import com.decagon.fintechpaymentapisqd11a.models.Wallet;
-import com.decagon.fintechpaymentapisqd11a.repositories.UserRepository;
+import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.token.ConfirmationToken;
 import com.decagon.fintechpaymentapisqd11a.validations.EmailValidator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import org.junit.jupiter.api.Disabled;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +51,7 @@ class RegistrationServiceImplTest {
     private RegistrationServiceImpl registrationServiceImpl;
 
     @MockBean
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     @MockBean
     private UserServiceImpl userServiceImpl;
@@ -217,7 +215,7 @@ class RegistrationServiceImplTest {
         users1.setUserStatus(UserStatus.ACTIVE);
         users1.setWallet(wallet1);
         Optional<Users> ofResult = Optional.of(users1);
-        when(userRepository.findByEmail((String) any())).thenReturn(ofResult);
+        when(usersRepository.findByEmail((String) any())).thenReturn(ofResult);
 
         Users users2 = new Users();
         users2.setBvn("Bvn");
@@ -340,7 +338,7 @@ class RegistrationServiceImplTest {
                 registrationServiceImpl.confirmToken("ABC123"));
         verify(userServiceImpl).saveToken((String) any(), (Users) any());
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
-        verify(userRepository).findByEmail((String) any());
+        verify(usersRepository).findByEmail((String) any());
         verify(confirmationTokenServiceImpl).getToken((String) any());
         verify(confirmationToken).getUsers();
         verify(confirmationToken).getConfirmedAt();
@@ -410,7 +408,7 @@ class RegistrationServiceImplTest {
         users1.setUserStatus(UserStatus.ACTIVE);
         users1.setWallet(wallet1);
         Optional<Users> ofResult = Optional.of(users1);
-        when(userRepository.findByEmail((String) any())).thenReturn(ofResult);
+        when(usersRepository.findByEmail((String) any())).thenReturn(ofResult);
 
         Users users2 = new Users();
         users2.setBvn("Bvn");
@@ -531,7 +529,7 @@ class RegistrationServiceImplTest {
         when(confirmationTokenServiceImpl.getToken((String) any())).thenReturn(ofResult1);
         assertThrows(EmailNotValidException.class, () -> registrationServiceImpl.confirmToken("ABC123"));
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
-        verify(userRepository).findByEmail((String) any());
+        verify(usersRepository).findByEmail((String) any());
         verify(confirmationTokenServiceImpl).getToken((String) any());
         verify(confirmationToken).getUsers();
         verify(confirmationToken).getConfirmedAt();
@@ -613,7 +611,7 @@ class RegistrationServiceImplTest {
         users1.setUserStatus(UserStatus.ACTIVE);
         users1.setWallet(wallet1);
         Optional<Users> ofResult = Optional.of(users1);
-        when(userRepository.findByEmail((String) any())).thenReturn(ofResult);
+        when(usersRepository.findByEmail((String) any())).thenReturn(ofResult);
 
         Users users2 = new Users();
         users2.setBvn("Bvn");
@@ -736,7 +734,7 @@ class RegistrationServiceImplTest {
                 registrationServiceImpl.confirmToken("ABC123"));
         verify(userServiceImpl).saveToken((String) any(), (Users) any());
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
-        verify(userRepository).findByEmail((String) any());
+        verify(usersRepository).findByEmail((String) any());
         verify(users1).getEmail();
         verify(users1).getFirstName();
         verify(users1).setCreatedAt((LocalDateTime) any());

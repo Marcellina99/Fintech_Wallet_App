@@ -3,7 +3,6 @@ package com.decagon.fintechpaymentapisqd11a.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @Builder

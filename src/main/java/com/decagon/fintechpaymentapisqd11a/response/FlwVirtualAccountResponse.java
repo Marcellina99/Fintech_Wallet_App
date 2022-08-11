@@ -14,8 +14,6 @@ public class FlwVirtualAccountResponse {
 
     private Data data;
 
-
-
     @ToString
     @AllArgsConstructor
     @NoArgsConstructor

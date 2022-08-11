@@ -1,13 +1,12 @@
 package com.decagon.fintechpaymentapisqd11a.services.serviceImpl;
 
-import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
 import com.decagon.fintechpaymentapisqd11a.dto.MailServiceDto;
+import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
 import com.decagon.fintechpaymentapisqd11a.exceptions.ConfirmationTokenException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.EmailNotValidException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.TokenNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
-import com.decagon.fintechpaymentapisqd11a.repositories.ConfirmationTokenRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.UserRepository;
 import com.decagon.fintechpaymentapisqd11a.services.RegistrationService;
 import com.decagon.fintechpaymentapisqd11a.token.ConfirmationToken;
@@ -25,19 +24,11 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
-
     private final UserServiceImpl userService;
-
-    private final ConfirmationTokenRepository confirmationTokenRepository;
-
     private final EmailValidator emailValidator;
-
     private final MailServiceImpl mailService;
-
     private final UserRepository userRepository;
-
     private final ConfirmationTokenServiceImpl confirmationTokenService;
-
 
     @Override
     public String createUser(RegistrationRequestDto registrationRequestDto) throws JSONException {
@@ -47,7 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         String token = userService.registerUser(registrationRequestDto);
 
-        String link = Constant.TOKEN_LINK + token;
+        String link = Constant.EMAIL_VERIFICATION_TOKEN_LINK + token;
          sendMail(registrationRequestDto.getFirstName(),
                  registrationRequestDto.getEmail(), link);
         return "Please check your email to verify your account";
@@ -79,7 +70,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public void resendEmail(Users users) {
         String token = UUID.randomUUID().toString();
-        String link = Constant.TOKEN_LINK + token;
+        String link = Constant.EMAIL_VERIFICATION_TOKEN_LINK + token;
         sendMail(users.getFirstName(),users.getEmail(), link);
 
         userService.saveToken(token, users);

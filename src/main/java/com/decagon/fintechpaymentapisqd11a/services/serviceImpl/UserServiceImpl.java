@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserDetailsService, UsersService {
         if (!passwordMatch) {
             throw new InputMismatchException("Passwords do not match!");
         }
-        //TODO: Encode Password and transaction pin
 
         registrationRequestDto.setTransactionPin(passwordEncoder
                 .encode(registrationRequestDto.getTransactionPin()));

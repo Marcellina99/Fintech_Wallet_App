@@ -1,4 +1,4 @@
-package com.decagon.fintechpaymentapisqd11a.configuration.utils;
+package com.decagon.fintechpaymentapisqd11a.util;
 
 import com.decagon.fintechpaymentapisqd11a.dto.ErrorResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;

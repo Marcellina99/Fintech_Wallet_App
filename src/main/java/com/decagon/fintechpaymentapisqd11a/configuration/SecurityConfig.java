@@ -1,6 +1,6 @@
 package com.decagon.fintechpaymentapisqd11a.configuration;
 
-import com.decagon.fintechpaymentapisqd11a.configuration.utils.CustomAuthorizationFilter;
+import com.decagon.fintechpaymentapisqd11a.util.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

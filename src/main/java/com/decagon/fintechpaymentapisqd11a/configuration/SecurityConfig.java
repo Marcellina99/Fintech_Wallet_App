@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http.authorizeHttpRequests().antMatchers("/api/login/**","/api/v1/viewWallet/**").permitAll();
+        http.authorizeHttpRequests().antMatchers("/api/login/**","/api/v1/viewWallet/**","/api/v1/user/viewWallet").permitAll();
         http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/users/**").hasAnyAuthority("USER");
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeHttpRequests().anyRequest().authenticated();

@@ -6,11 +6,23 @@ import com.decagon.fintechpaymentapisqd11a.models.Users;
 import com.decagon.fintechpaymentapisqd11a.models.Wallet;
 import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.WalletRepository;
+import com.decagon.fintechpaymentapisqd11a.request.FlwWalletRequest;
+import com.decagon.fintechpaymentapisqd11a.response.FlwVirtualAccountResponse;
 import com.decagon.fintechpaymentapisqd11a.services.WalletService;
+import com.decagon.fintechpaymentapisqd11a.util.Constant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -24,14 +36,53 @@ private final UsersRepository usersRepository;
     public WalletDto viewWalletDetails() throws UserNotFoundException {
         WalletDto walletDto =new WalletDto();
 
-        Authentication  users1 = SecurityContextHolder.getContext().getAuthentication();
-        Users users = usersRepository.findByEmail(users1.getName());
+        Authentication users1 = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Users> users = usersRepository.findByEmail(users1.getName());
         if (users == null){
             throw new UserNotFoundException("User not found!");
         }
-        Wallet wallet = walletRepository.findWalletByUsersId(users.getId());
+        Wallet wallet = walletRepository.findWalletByUsersId(users.get().getId());
         walletDto.setBalance(wallet.getBalance());
         walletDto.setAcctNumber(wallet.getAcctNumber());
         return walletDto;
+    }
+
+    @Override
+    public Wallet createWallet(FlwWalletRequest walletRequest) throws JSONException {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + Constant.AUTHORIZATION);
+        FlwWalletRequest payload = generatePayload(walletRequest);
+        HttpEntity<FlwWalletRequest> request = new HttpEntity<>(payload, headers);
+
+        FlwVirtualAccountResponse body = restTemplate.exchange(
+                Constant.CREATE_VIRTUAL_ACCOUNT_API,
+                HttpMethod.POST,
+                request,
+                FlwVirtualAccountResponse.class
+        ).getBody();
+
+        Wallet wallet = Wallet.builder()
+                .bankName(body.getData().getBankName())
+                .acctNumber(body.getData().getAccountNumber())
+                .balance(Double.parseDouble(body.getData().getAmount()))
+                .build();
+        return wallet;
+    }
+
+    private FlwWalletRequest generatePayload(FlwWalletRequest flwWalletRequest){
+        FlwWalletRequest jsonData = FlwWalletRequest.builder()
+                .firstname(flwWalletRequest.getFirstname())
+                .lastname(flwWalletRequest.getLastname())
+                .email(flwWalletRequest.getEmail())
+                .bvn(flwWalletRequest.getBvn())
+                .is_permanent(true)
+                .phonenumber(flwWalletRequest.getPhonenumber())
+                .tx_ref("FinTech Payment App SQ-11A")
+                .narration("Payment")
+                .build();
+
+            return jsonData;
     }
 }

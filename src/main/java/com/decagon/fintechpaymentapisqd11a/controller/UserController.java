@@ -3,7 +3,7 @@ package com.decagon.fintechpaymentapisqd11a.controller;
 import com.decagon.fintechpaymentapisqd11a.dto.AuthResponse;
 import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.services.LoginService;
-import com.decagon.fintechpaymentapisqd11a.services.UserService;
+import com.decagon.fintechpaymentapisqd11a.services.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class UserController {
-    private final UserService userService;
+    private final UsersService usersService;
     private final LoginService loginService;
 
     @PostMapping("/login")
@@ -25,4 +25,6 @@ public class UserController {
         AuthResponse authResponse = new AuthResponse(token);
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
+
+
 }

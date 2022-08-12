@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WalletDto {
-    private BigDecimal balance;
-    private Integer acctNumber;
+    private Double balance;
+    private String acctNumber;
     private String bankName = "Wema Bank";
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+//@RequestMapping("/api/user")
 public class WalletController {
     @Autowired
     private WalletService walletService;

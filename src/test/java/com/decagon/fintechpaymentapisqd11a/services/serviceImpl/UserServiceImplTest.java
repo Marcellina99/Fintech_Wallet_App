@@ -571,6 +571,5 @@ class UserServiceImplTest {
         verify(users1).setWallet((Wallet) any());
     }
 
-
 }
 

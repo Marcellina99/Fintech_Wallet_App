@@ -28,9 +28,7 @@ class UserControllerTest {
     @Autowired
     private UserController userController;
 
-    /**
-     * Method under test: {@link UserController#confirmToken(String)}
-     */
+
     @Test
     void testConfirmToken() throws Exception {
         when(registrationServiceImpl.confirmToken((String) any())).thenReturn("ABC123");
@@ -44,9 +42,7 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("ABC123"));
     }
 
-    /**
-     * Method under test: {@link UserController#createUserAccount(RegistrationRequestDto)}
-     */
+
     @Test
     void testCreateUserAccount() throws Exception {
         when(registrationServiceImpl.createUser((RegistrationRequestDto) any())).thenReturn("Create User");

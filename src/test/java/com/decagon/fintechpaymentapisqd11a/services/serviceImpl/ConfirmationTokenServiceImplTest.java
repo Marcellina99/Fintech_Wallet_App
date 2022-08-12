@@ -33,9 +33,7 @@ class ConfirmationTokenServiceImplTest {
     @Autowired
     private ConfirmationTokenServiceImpl confirmationTokenServiceImpl;
 
-    /**
-     * Method under test: {@link ConfirmationTokenServiceImpl#saveConfirmationToken(ConfirmationToken)}
-     */
+
     @Test
     void testSaveConfirmationToken() {
         Wallet wallet = new Wallet();
@@ -150,9 +148,7 @@ class ConfirmationTokenServiceImplTest {
         assertEquals("0001-01-01", confirmationToken1.getExpiresAt().toLocalDate().toString());
     }
 
-    /**
-     * Method under test: {@link ConfirmationTokenServiceImpl#getToken(String)}
-     */
+
     @Test
     void testGetToken() {
         Users users = new Users();
@@ -208,9 +204,7 @@ class ConfirmationTokenServiceImplTest {
         verify(confirmationTokenRepository).findByToken((String) any());
     }
 
-    /**
-     * Method under test: {@link ConfirmationTokenServiceImpl#setConfirmedAt(String)}
-     */
+
     @Test
     void testSetConfirmedAt() {
         when(confirmationTokenRepository.updateConfirmedAt((String) any(), (LocalDateTime) any())).thenReturn(1);

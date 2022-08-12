@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserDetailsService, UsersService {
     public UserDetails loadUserByUsername(String email) throws UserNotFoundException {
         Optional<Users> users = usersRepository.findByEmail(email);
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("USER");
-        if (!users.isPresent()) {
+        if (users.isEmpty()) {
             throw new UserNotFoundException("Email not found in database");
         } else {
             return new User(users.get().getEmail(), users.get().getPassword(), Collections.singleton(authority));

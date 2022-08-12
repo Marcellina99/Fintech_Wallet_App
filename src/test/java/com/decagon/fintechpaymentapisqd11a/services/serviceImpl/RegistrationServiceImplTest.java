@@ -56,9 +56,7 @@ class RegistrationServiceImplTest {
     @MockBean
     private UserServiceImpl userServiceImpl;
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#createUser(RegistrationRequestDto)}
-     */
+
     @Test
     void testCreateUser() throws JSONException, MailException {
         when(userServiceImpl.registerUser((RegistrationRequestDto) any())).thenReturn("Register User");
@@ -72,9 +70,7 @@ class RegistrationServiceImplTest {
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#createUser(RegistrationRequestDto)}
-     */
+
     @Test
     void testCreateUser2() throws JSONException, MailException {
         when(userServiceImpl.registerUser((RegistrationRequestDto) any())).thenReturn("Register User");
@@ -89,9 +85,7 @@ class RegistrationServiceImplTest {
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#createUser(RegistrationRequestDto)}
-     */
+
     @Test
     void testCreateUser3() throws JSONException, MailException {
         when(userServiceImpl.registerUser((RegistrationRequestDto) any())).thenReturn("Register User");
@@ -103,9 +97,6 @@ class RegistrationServiceImplTest {
         verify(emailValidator).test((String) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#confirmToken(String)}
-     */
     @Test
     void testConfirmToken() {
         Users users = new Users();
@@ -159,9 +150,7 @@ class RegistrationServiceImplTest {
         verify(confirmationTokenServiceImpl).getToken((String) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#confirmToken(String)}
-     */
+
     @Test
     void testConfirmToken2() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -351,9 +340,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setUsers((Users) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#confirmToken(String)}
-     */
+
     @Test
     void testConfirmToken3() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -542,9 +529,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setUsers((Users) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#confirmToken(String)}
-     */
+
     @Test
     void testConfirmToken4() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -761,9 +746,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setUsers((Users) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#resendEmail(Users)}
-     */
+
     @Test
     void testResendEmail() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -821,9 +804,7 @@ class RegistrationServiceImplTest {
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#resendEmail(Users)}
-     */
+
     @Test
     void testResendEmail2() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -881,9 +862,6 @@ class RegistrationServiceImplTest {
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#resendEmail(Users)}
-     */
     @Test
     void testResendEmail3() throws MailException {
         doNothing().when(userServiceImpl).saveToken((String) any(), (Users) any());
@@ -968,9 +946,6 @@ class RegistrationServiceImplTest {
         verify(users1).setWallet((Wallet) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#sendMail(String, String, String)}
-     */
     @Test
     void testSendMail() throws MailException {
         doNothing().when(mailServiceImpl).sendNotification((MailServiceDto) any());
@@ -978,9 +953,7 @@ class RegistrationServiceImplTest {
         verify(mailServiceImpl).sendNotification((MailServiceDto) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationServiceImpl#sendMail(String, String, String)}
-     */
+
     @Test
     void testSendMail2() throws MailException {
         doThrow(new EmailNotValidException("An error occurred")).when(mailServiceImpl)

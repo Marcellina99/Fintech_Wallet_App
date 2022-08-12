@@ -1,7 +1,8 @@
 package com.decagon.fintechpaymentapisqd11a.services.serviceImpl;
 
-import com.decagon.fintechpaymentapisqd11a.dto.UserDto;
+import com.decagon.fintechpaymentapisqd11a.dto.MailServiceDto;
 import com.decagon.fintechpaymentapisqd11a.services.MailService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,22 +10,24 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class MailServiceImpl implements MailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+
+    private final JavaMailSender javaMailSender;
 
     @Override
-    public void sendNotification(UserDto userDto) throws MailException{
+    public void sendNotification(MailServiceDto mailServiceDto) throws MailException{
 
         //send email
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(userDto.getEmailAddress());
-        mail.setSubject(userDto.getSubject());
-        mail.setText("Hi" + userDto.getName() + "!\n" + userDto.getMessage());
+        mail.setTo(mailServiceDto.getEmailAddress());
+        mail.setSubject(mailServiceDto.getSubject());
+        mail.setText("Hi " + mailServiceDto.getName() + "!\n" + mailServiceDto.getMessage());
         javaMailSender.send(mail);
     }
+
 
 
 }

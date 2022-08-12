@@ -3,6 +3,7 @@ package com.decagon.fintechpaymentapisqd11a.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,15 +17,16 @@ import java.util.List;
 @Table(name = "wallet_tbl")
 public class Wallet extends BaseClass {
 
-    private BigDecimal balance;
+    private Double balance = 0.00;
 
     @Column(length = 10, nullable = false)
-    private Integer acctNumber;
+    @Size(min = 10, max = 10)
+    private String acctNumber;
 
     @Column(nullable = false)
     private String bankName;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 

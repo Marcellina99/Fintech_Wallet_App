@@ -6,7 +6,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-import com.decagon.fintechpaymentapisqd11a.dto.UserDto;
+import com.decagon.fintechpaymentapisqd11a.dto.MailServiceDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ class MailServiceImplTest {
     void testSendMail() throws MailException {
         doNothing().when(javaMailSender).send((SimpleMailMessage) any());
         mailServiceImpl.sendNotification(
-                new UserDto("Decagon", "Josgolf@yahoo.com", "You have been admitted", "Hello from Decagon"));
+                new MailServiceDto("Decagon", "Josgolf@yahoo.com", "You have been admitted", "Hello from Decagon"));
         verify(javaMailSender).send((SimpleMailMessage) any());
     }
 
@@ -39,7 +39,7 @@ class MailServiceImplTest {
     void testSendMailException() throws MailException {
         doThrow(new MailAuthenticationException("Oops! Something bad happened.")).when(javaMailSender).send((SimpleMailMessage) any());
         assertThrows(MailAuthenticationException.class, () -> mailServiceImpl.sendNotification(
-                new UserDto("Decagon", "Josgolf@yahoo", "You have been admitted", "Hello from Decagon")));
+                new MailServiceDto("Decagon", "Josgolf@yahoo", "You have been admitted", "Hello from Decagon")));
         verify(javaMailSender).send((SimpleMailMessage) any());
     }
 }

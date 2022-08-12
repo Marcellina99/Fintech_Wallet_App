@@ -1,6 +1,6 @@
 package com.decagon.fintechpaymentapisqd11a.services.serviceImpl;
 
-import com.decagon.fintechpaymentapisqd11a.configuration.utils.JwtUtils;
+import com.decagon.fintechpaymentapisqd11a.util.JwtUtils;
 import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
 import com.decagon.fintechpaymentapisqd11a.services.LoginService;

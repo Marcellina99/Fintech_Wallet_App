@@ -18,6 +18,7 @@ import com.decagon.fintechpaymentapisqd11a.models.Wallet;
 import com.decagon.fintechpaymentapisqd11a.repositories.ConfirmationTokenRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.WalletRepository;
+import com.decagon.fintechpaymentapisqd11a.response.UserResponse;
 import com.decagon.fintechpaymentapisqd11a.services.WalletService;
 import com.decagon.fintechpaymentapisqd11a.token.ConfirmationToken;
 import com.decagon.fintechpaymentapisqd11a.util.Util;
@@ -418,7 +419,6 @@ class UserServiceImplTest {
         verify(confirmationTokenServiceImpl).saveConfirmationToken((ConfirmationToken) any());
     }
 
-
     @Test
     void testLoadUserByUsername() throws UserNotFoundException {
         Wallet wallet = new Wallet();
@@ -570,6 +570,7 @@ class UserServiceImplTest {
         verify(users1).setUserStatus((UserStatus) any());
         verify(users1).setWallet((Wallet) any());
     }
+
 
 }
 

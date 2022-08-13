@@ -1,8 +1,13 @@
 package com.decagon.fintechpaymentapisqd11a.controller;
 
 
+import com.decagon.fintechpaymentapisqd11a.dto.AuthResponse;
+import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
 import com.decagon.fintechpaymentapisqd11a.models.Users;
+import com.decagon.fintechpaymentapisqd11a.response.UserResponse;
+import com.decagon.fintechpaymentapisqd11a.services.LoginService;
+import com.decagon.fintechpaymentapisqd11a.services.UsersService;
 import com.decagon.fintechpaymentapisqd11a.services.serviceImpl.RegistrationServiceImpl;
 import com.decagon.fintechpaymentapisqd11a.services.serviceImpl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +21,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     private final RegistrationServiceImpl registrationService;
+    private final UsersService usersService;
+
+    private final LoginService loginService;
 
 
     @PostMapping("/registration")
@@ -31,5 +39,19 @@ public class UserController {
     @GetMapping( "/confirm")
     public ResponseEntity<String> confirmToken(@RequestParam("token") String token ){
         return new ResponseEntity<>(registrationService.confirmToken(token), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequestPayload loginRequestPayload) throws Exception {
+        String token = loginService.authenticate(loginRequestPayload);
+        AuthResponse authResponse = new AuthResponse(token);
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<UserResponse> getUser(){
+        UserResponse userResponse = usersService.getUser();
+        return new ResponseEntity<>(userResponse,HttpStatus.OK);
     }
 }

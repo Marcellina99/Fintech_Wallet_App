@@ -26,8 +26,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -521,7 +519,7 @@ class UserServiceImplTest {
         when(users1.getEmail()).thenReturn("jane.doe@example.org");
         when(users1.getPassword()).thenReturn("iloveyou");
         doNothing().when(users1).setCreatedAt((LocalDateTime) any());
-        doNothing().when(users1).setId((Long) any());
+        doNothing().when(users1).setId((java.lang.Long) any());
         doNothing().when(users1).setUpdatedAt((LocalDateTime) any());
         doNothing().when(users1).setBvn((String) any());
         doNothing().when(users1).setEmail((String) any());
@@ -558,7 +556,7 @@ class UserServiceImplTest {
         verify(users1).getEmail();
         verify(users1).getPassword();
         verify(users1).setCreatedAt((LocalDateTime) any());
-        verify(users1).setId((Long) any());
+        verify(users1).setId((java.lang.Long) any());
         verify(users1).setUpdatedAt((LocalDateTime) any());
         verify(users1).setBvn((String) any());
         verify(users1).setEmail((String) any());

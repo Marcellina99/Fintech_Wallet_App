@@ -11,18 +11,18 @@ import com.decagon.fintechpaymentapisqd11a.response.FlwVirtualAccountResponse;
 import com.decagon.fintechpaymentapisqd11a.services.WalletService;
 import com.decagon.fintechpaymentapisqd11a.util.Constant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
-import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -35,17 +35,16 @@ private final UsersRepository usersRepository;
     @Override
     public WalletDto viewWalletDetails() throws UserNotFoundException {
         WalletDto walletDto =new WalletDto();
-
-        Authentication users1 = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Users> users = usersRepository.findByEmail(users1.getName());
-        if (users == null){
-            throw new UserNotFoundException("User not found!");
-        }
-        Wallet wallet = walletRepository.findWalletByUsersId(users.get().getId());
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users users = usersRepository.findByEmail(user.getUsername()).
+                orElseThrow(()-> new UserNotFoundException("Not found"));
+        Wallet wallet = users.getWallet();
         walletDto.setBalance(wallet.getBalance());
         walletDto.setAcctNumber(wallet.getAcctNumber());
+        BeanUtils.copyProperties(users, walletDto);
         return walletDto;
     }
+
 
     @Override
     public Wallet createWallet(FlwWalletRequest walletRequest) throws JSONException {

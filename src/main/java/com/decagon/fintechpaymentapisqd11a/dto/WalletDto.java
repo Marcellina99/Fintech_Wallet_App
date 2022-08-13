@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WalletDto {
+
+    private String firstName;
+    private String lastName;
     private Double balance;
     private String acctNumber;
     private String bankName = "Wema Bank";

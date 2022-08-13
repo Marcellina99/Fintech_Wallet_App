@@ -28,7 +28,7 @@ public class ConfirmationToken {
             generator = "confirmation_token_sequence"
     )
 
-    private Long id;
+    private java.lang.Long id;
 
     @Column(nullable = false)
     private String token;

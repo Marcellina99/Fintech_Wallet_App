@@ -1,21 +1,50 @@
 package com.decagon.fintechpaymentapisqd11a.services.serviceImpl;
 
+import com.decagon.fintechpaymentapisqd11a.dto.WalletDto;
+import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
+import com.decagon.fintechpaymentapisqd11a.models.Users;
 import com.decagon.fintechpaymentapisqd11a.models.Wallet;
+import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
+import com.decagon.fintechpaymentapisqd11a.repositories.WalletRepository;
 import com.decagon.fintechpaymentapisqd11a.request.FlwWalletRequest;
 import com.decagon.fintechpaymentapisqd11a.response.FlwVirtualAccountResponse;
 import com.decagon.fintechpaymentapisqd11a.services.WalletService;
 import com.decagon.fintechpaymentapisqd11a.util.Constant;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+
+
+@RequiredArgsConstructor
 @Service
 public class WalletServiceImpl implements WalletService {
+
+private final WalletRepository walletRepository;
+private final UsersRepository usersRepository;
+
+    @Override
+    public WalletDto viewWalletDetails() throws UserNotFoundException {
+        WalletDto walletDto =new WalletDto();
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users users = usersRepository.findByEmail(user.getUsername()).
+                orElseThrow(()-> new UserNotFoundException("Not found"));
+        Wallet wallet = users.getWallet();
+        walletDto.setBalance(wallet.getBalance());
+        walletDto.setAcctNumber(wallet.getAcctNumber());
+        BeanUtils.copyProperties(users, walletDto);
+        return walletDto;
+    }
+
 
     @Override
     public Wallet createWallet(FlwWalletRequest walletRequest) throws JSONException {
@@ -55,5 +84,4 @@ public class WalletServiceImpl implements WalletService {
 
             return jsonData;
     }
-
 }

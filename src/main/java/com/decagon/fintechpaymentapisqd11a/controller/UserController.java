@@ -1,8 +1,10 @@
 package com.decagon.fintechpaymentapisqd11a.controller;
 
+
 import com.decagon.fintechpaymentapisqd11a.dto.AuthResponse;
 import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
+import com.decagon.fintechpaymentapisqd11a.response.UserResponse;
 import com.decagon.fintechpaymentapisqd11a.services.LoginService;
 import com.decagon.fintechpaymentapisqd11a.services.UsersService;
 import com.decagon.fintechpaymentapisqd11a.services.serviceImpl.RegistrationServiceImpl;
@@ -16,11 +18,12 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class UserController {
     private final UsersService usersService;
     private final LoginService loginService;
     private final RegistrationServiceImpl registrationService;
+
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequestPayload loginRequestPayload) throws Exception {
@@ -40,4 +43,10 @@ public class UserController {
     }
 
 
+
+    @GetMapping("/getUser")
+    public ResponseEntity<UserResponse> getUser(){
+        UserResponse userResponse = usersService.getUser();
+        return new ResponseEntity<>(userResponse,HttpStatus.OK);
+    }
 }

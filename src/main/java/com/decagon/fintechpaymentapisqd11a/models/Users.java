@@ -23,7 +23,7 @@ public class Users extends BaseClass{
     private String lastName;
 
     @Column(length = 11, unique = true, nullable = false)
-    @Size(min = 11, max = 11)
+    @Size(min = 11, max = 11, message = "BVN must be 11 characters")
     private String bvn;
 
     @Email
@@ -31,15 +31,15 @@ public class Users extends BaseClass{
     private String email;
 
     @Column(length = 11)
-    @Size(min = 11, max = 11)
+    @Size(min = 11, max = 11, message = "Phone number must be 11 digits")
     private String phoneNumber;
 
     @Column(nullable = false)
-    @Size(min = 8)
+    @Size(min = 8, message = "Password must not be less than 8 characters")
     private String password;
 
-    @Column(length = 6)
-    @Size(min = 6, max = 6)
+   // @Column(length = 6)
+    @Size(min = 6, message = "Transaction pin must be 6 characters")
     private String transactionPin;
 
     @Enumerated(EnumType.STRING)
@@ -47,4 +47,6 @@ public class Users extends BaseClass{
 
     @OneToOne(mappedBy = "users")
     private Wallet wallet;
+
+    private String role;
 }

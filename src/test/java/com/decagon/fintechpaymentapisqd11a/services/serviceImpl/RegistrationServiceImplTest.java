@@ -312,7 +312,7 @@ class RegistrationServiceImplTest {
         doNothing().when(confirmationToken).setConfirmedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setCreatedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setExpiresAt((LocalDateTime) any());
-        doNothing().when(confirmationToken).setId((Long) any());
+        doNothing().when(confirmationToken).setId((java.lang.Long) any());
         doNothing().when(confirmationToken).setToken((String) any());
         doNothing().when(confirmationToken).setUsers((Users) any());
         confirmationToken.setConfirmedAt(LocalDateTime.of(1, 1, 1, 1, 1));
@@ -335,7 +335,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setConfirmedAt((LocalDateTime) any());
         verify(confirmationToken).setCreatedAt((LocalDateTime) any());
         verify(confirmationToken).setExpiresAt((LocalDateTime) any());
-        verify(confirmationToken).setId((Long) any());
+        verify(confirmationToken).setId((java.lang.Long) any());
         verify(confirmationToken).setToken((String) any());
         verify(confirmationToken).setUsers((Users) any());
     }
@@ -503,7 +503,7 @@ class RegistrationServiceImplTest {
         doNothing().when(confirmationToken).setConfirmedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setCreatedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setExpiresAt((LocalDateTime) any());
-        doNothing().when(confirmationToken).setId((Long) any());
+        doNothing().when(confirmationToken).setId((java.lang.Long) any());
         doNothing().when(confirmationToken).setToken((String) any());
         doNothing().when(confirmationToken).setUsers((Users) any());
         confirmationToken.setConfirmedAt(LocalDateTime.of(1, 1, 1, 1, 1));
@@ -524,7 +524,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setConfirmedAt((LocalDateTime) any());
         verify(confirmationToken).setCreatedAt((LocalDateTime) any());
         verify(confirmationToken).setExpiresAt((LocalDateTime) any());
-        verify(confirmationToken).setId((Long) any());
+        verify(confirmationToken).setId((java.lang.Long) any());
         verify(confirmationToken).setToken((String) any());
         verify(confirmationToken).setUsers((Users) any());
     }
@@ -572,7 +572,7 @@ class RegistrationServiceImplTest {
         when(users1.getEmail()).thenReturn("jane.doe@example.org");
         when(users1.getFirstName()).thenReturn("Jane");
         doNothing().when(users1).setCreatedAt((LocalDateTime) any());
-        doNothing().when(users1).setId((Long) any());
+        doNothing().when(users1).setId((java.lang.Long) any());
         doNothing().when(users1).setUpdatedAt((LocalDateTime) any());
         doNothing().when(users1).setBvn((String) any());
         doNothing().when(users1).setEmail((String) any());
@@ -704,7 +704,7 @@ class RegistrationServiceImplTest {
         doNothing().when(confirmationToken).setConfirmedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setCreatedAt((LocalDateTime) any());
         doNothing().when(confirmationToken).setExpiresAt((LocalDateTime) any());
-        doNothing().when(confirmationToken).setId((Long) any());
+        doNothing().when(confirmationToken).setId((java.lang.Long) any());
         doNothing().when(confirmationToken).setToken((String) any());
         doNothing().when(confirmationToken).setUsers((Users) any());
         confirmationToken.setConfirmedAt(LocalDateTime.of(1, 1, 1, 1, 1));
@@ -723,7 +723,7 @@ class RegistrationServiceImplTest {
         verify(users1).getEmail();
         verify(users1).getFirstName();
         verify(users1).setCreatedAt((LocalDateTime) any());
-        verify(users1).setId((Long) any());
+        verify(users1).setId((java.lang.Long) any());
         verify(users1).setUpdatedAt((LocalDateTime) any());
         verify(users1).setBvn((String) any());
         verify(users1).setEmail((String) any());
@@ -741,7 +741,7 @@ class RegistrationServiceImplTest {
         verify(confirmationToken).setConfirmedAt((LocalDateTime) any());
         verify(confirmationToken).setCreatedAt((LocalDateTime) any());
         verify(confirmationToken).setExpiresAt((LocalDateTime) any());
-        verify(confirmationToken).setId((Long) any());
+        verify(confirmationToken).setId((java.lang.Long) any());
         verify(confirmationToken).setToken((String) any());
         verify(confirmationToken).setUsers((Users) any());
     }
@@ -904,7 +904,7 @@ class RegistrationServiceImplTest {
         when(users1.getEmail()).thenReturn("jane.doe@example.org");
         when(users1.getFirstName()).thenReturn("Jane");
         doNothing().when(users1).setCreatedAt((LocalDateTime) any());
-        doNothing().when(users1).setId((Long) any());
+        doNothing().when(users1).setId((java.lang.Long) any());
         doNothing().when(users1).setUpdatedAt((LocalDateTime) any());
         doNothing().when(users1).setBvn((String) any());
         doNothing().when(users1).setEmail((String) any());
@@ -933,7 +933,7 @@ class RegistrationServiceImplTest {
         verify(users1).getEmail();
         verify(users1).getFirstName();
         verify(users1).setCreatedAt((LocalDateTime) any());
-        verify(users1).setId((Long) any());
+        verify(users1).setId((java.lang.Long) any());
         verify(users1).setUpdatedAt((LocalDateTime) any());
         verify(users1).setBvn((String) any());
         verify(users1).setEmail((String) any());

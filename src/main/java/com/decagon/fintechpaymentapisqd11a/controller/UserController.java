@@ -4,35 +4,36 @@ package com.decagon.fintechpaymentapisqd11a.controller;
 import com.decagon.fintechpaymentapisqd11a.dto.AuthResponse;
 import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
-import com.decagon.fintechpaymentapisqd11a.models.Users;
 import com.decagon.fintechpaymentapisqd11a.response.UserResponse;
 import com.decagon.fintechpaymentapisqd11a.services.LoginService;
 import com.decagon.fintechpaymentapisqd11a.services.UsersService;
 import com.decagon.fintechpaymentapisqd11a.services.serviceImpl.RegistrationServiceImpl;
-import com.decagon.fintechpaymentapisqd11a.services.serviceImpl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 public class UserController {
-
-    private final RegistrationServiceImpl registrationService;
     private final UsersService usersService;
-
     private final LoginService loginService;
+    private final RegistrationServiceImpl registrationService;
 
 
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequestPayload loginRequestPayload) throws Exception {
+        String token = loginService.authenticate(loginRequestPayload);
+        AuthResponse authResponse = new AuthResponse(token);
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
+    }
     @PostMapping("/registration")
     public ResponseEntity<String> createUserAccount(@Valid @RequestBody RegistrationRequestDto
-                                                requestDto) throws JSONException {
+                                                            requestDto) throws JSONException {
         return new ResponseEntity<> (registrationService.createUser(requestDto), HttpStatus.CREATED);
     }
 
@@ -42,12 +43,6 @@ public class UserController {
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequestPayload loginRequestPayload) throws Exception {
-        String token = loginService.authenticate(loginRequestPayload);
-        AuthResponse authResponse = new AuthResponse(token);
-        return new ResponseEntity<>(authResponse, HttpStatus.OK);
-    }
 
     @GetMapping("/getUser")
     public ResponseEntity<UserResponse> getUser(){

@@ -6,8 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -51,8 +49,4 @@ public class Users extends BaseClass{
     private Wallet wallet;
 
     private String role;
-
-
-
-
 }

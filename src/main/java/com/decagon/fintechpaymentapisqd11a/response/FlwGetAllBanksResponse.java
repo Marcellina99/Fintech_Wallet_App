@@ -19,18 +19,4 @@ public class FlwGetAllBanksResponse {
     private String message;
     private List<FlwBank> data = new ArrayList<>();
 
-
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class Root {
-
-    private Integer id;
-    private String code;
-    private String name;
-
-    }
 }

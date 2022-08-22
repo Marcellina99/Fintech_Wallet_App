@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 public class Transaction extends BaseClass{
 
 
-    private Integer sourceAccountNumber;
+    private String sourceAccountNumber;
 
     private String sourceBank;
 

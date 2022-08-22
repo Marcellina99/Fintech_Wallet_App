@@ -84,4 +84,24 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.of(Optional.of(errorResponseDto));
     }
+
+    @ExceptionHandler(IncorrectDetailsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponseDto> handleIncorrectDetailsException(final IncorrectDetailsException ex) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setMessage(ex.getMessage());
+        errorResponseDto.setDebugMessage("Incorrect Details");
+
+        return ResponseEntity.of(Optional.of(errorResponseDto));
+    }
+
+    @ExceptionHandler(ErrorException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponseDto> handleErrorExceptionException(final ErrorException ex) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+        errorResponseDto.setMessage(ex.getMessage());
+        errorResponseDto.setDebugMessage("An error occured");
+
+        return ResponseEntity.of(Optional.of(errorResponseDto));
+    }
 }

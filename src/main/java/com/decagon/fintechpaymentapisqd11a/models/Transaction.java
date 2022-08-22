@@ -17,16 +17,14 @@ import java.math.BigDecimal;
 @Table(name = "transaction_tbl")
 public class Transaction extends BaseClass{
 
-    @Column(length = 10, nullable = false)
+
     private Integer sourceAccountNumber;
 
-    @Column(nullable = false)
     private String sourceBank;
 
     @Column(length = 10, nullable = false)
-    private Integer destinationAccountNumber;
+    private String destinationAccountNumber;
 
-    @Column(nullable = false)
     private String destinationAccountName;
 
     @Column(nullable = false)
@@ -51,6 +49,8 @@ public class Transaction extends BaseClass{
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
     private Wallet wallet;
 
-
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users users;
 
 }

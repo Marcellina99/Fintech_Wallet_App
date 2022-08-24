@@ -38,7 +38,9 @@ public class TransactionHistoryImpl implements TransactionHistory {
 
         List<TransactionHistoryDto> response = new ArrayList<>();
         for(Transaction transaction : allTransact){
+
             TransactionHistoryDto transactionHistoryDto = new TransactionHistoryDto();
+            transactionHistoryDto.setId(transaction.getId());
             transactionHistoryDto.setName(transaction.getDestinationAccountName());
             transactionHistoryDto.setBank(transaction.getDestinationBank());
             transactionHistoryDto.setTransactionTime(transaction.getCreatedAt());

@@ -7,7 +7,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Setter
+@Data
 @ToString
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

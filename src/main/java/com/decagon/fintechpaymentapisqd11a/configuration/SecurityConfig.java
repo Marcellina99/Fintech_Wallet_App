@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeHttpRequests().antMatchers( "/api/v1/user/**" ).permitAll();
         http.authorizeHttpRequests().antMatchers("/api/v1/login/**","/api/v1/registration").permitAll();
-        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/users/**").hasAnyAuthority("USER");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/users/**").hasAnyAuthority("USER", "/api/v1/transactionHistory");
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

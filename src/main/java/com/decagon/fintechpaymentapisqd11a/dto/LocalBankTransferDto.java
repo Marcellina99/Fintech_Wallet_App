@@ -2,10 +2,12 @@ package com.decagon.fintechpaymentapisqd11a.dto;
 
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,4 +26,6 @@ public class LocalBankTransferDto {
     private String narration;
     @NotNull(message = "Pin is required")
     private String pin;
+    @CreationTimestamp
+    private LocalDateTime transactionDate;
 }

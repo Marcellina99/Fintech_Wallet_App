@@ -92,6 +92,7 @@ public class LocalTransferServiceImpl implements LocalTransferService {
                 .destinationAccountNumber(localBankTransferDto.getAccountNumber())
                 .sourceAccountNumber(senderWallet.getAcctNumber())
                 .transactiontype(Transactiontype.DEBIT)
+                .transactionDate(localBankTransferDto.getTransactionDate())
                 .sourceBank(senderWallet.getBankName())
                 .clientRef(uuid.toString())
                 .build();

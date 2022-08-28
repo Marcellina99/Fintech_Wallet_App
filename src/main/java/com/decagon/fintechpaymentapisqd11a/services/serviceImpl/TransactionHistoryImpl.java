@@ -10,6 +10,7 @@ import com.decagon.fintechpaymentapisqd11a.repositories.TransactionRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.UsersRepository;
 import com.decagon.fintechpaymentapisqd11a.repositories.WalletRepository;
 import com.decagon.fintechpaymentapisqd11a.services.TransactionHistory;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -29,16 +30,28 @@ public class TransactionHistoryImpl implements TransactionHistory {
     }
 
     @Override
-    public List<TransactionHistoryDto> allTransaction(TransactionHistoryPages transactionHistoryPages) {
+    public PageImpl<TransactionHistoryDto> allTransaction(TransactionHistoryPages transactionHistoryPages) {
 
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         Users user = usersRepository.findUsersByEmail(userEmail).orElseThrow(()-> new UserNotFoundException("User not found"));
+        Sort sort = Sort.by(transactionHistoryPages.getSortDirection(), transactionHistoryPages.getSortBy());
+        Pageable pageable = PageRequest.of(transactionHistoryPages.getPageNumber(), transactionHistoryPages.getPageSize(), sort);
+
+
         Wallet wallet = walletRepository.findWalletByUsers(user);
         List<Transaction> allTransact = transactionRepository.findAllByWallet(wallet);
 
+        String userAccountNumber = wallet.getAcctNumber();
+
+        Page<Transaction> transactions = transactionRepository
+                .findAllBySourceAccountNumberOrDestinationAccountNumber(userAccountNumber, userAccountNumber, pageable);
+
+
         List<TransactionHistoryDto> response = new ArrayList<>();
         for(Transaction transaction : allTransact){
+
             TransactionHistoryDto transactionHistoryDto = new TransactionHistoryDto();
+            transactionHistoryDto.setId(transaction.getId());
             transactionHistoryDto.setName(transaction.getDestinationAccountName());
             transactionHistoryDto.setBank(transaction.getDestinationBank());
             transactionHistoryDto.setTransactionTime(transaction.getCreatedAt());
@@ -47,7 +60,7 @@ public class TransactionHistoryImpl implements TransactionHistory {
             response.add(transactionHistoryDto);
 
         }
-
-        return response;
+        PageImpl<TransactionHistoryDto> transactionHistoryPage = new PageImpl<>(response, pageable, transactions.getTotalElements());
+        return transactionHistoryPage;
     }
     }

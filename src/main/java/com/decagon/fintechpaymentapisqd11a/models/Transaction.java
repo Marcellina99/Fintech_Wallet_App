@@ -3,9 +3,13 @@ package com.decagon.fintechpaymentapisqd11a.models;
 import com.decagon.fintechpaymentapisqd11a.enums.TransactionStatus;
 import com.decagon.fintechpaymentapisqd11a.enums.Transactiontype;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -32,6 +36,9 @@ public class Transaction extends BaseClass{
 
     @Enumerated(EnumType.STRING)
     private Transactiontype transactiontype;
+
+    @CreationTimestamp
+    private LocalDateTime transactionDate;
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;

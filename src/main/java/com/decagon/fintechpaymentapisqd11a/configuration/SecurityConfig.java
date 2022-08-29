@@ -31,7 +31,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable();
         http.authorizeHttpRequests().antMatchers( "/api/v1/user/**" ).permitAll();
         http.authorizeHttpRequests().antMatchers("/api/v1/login/**","/api/v1/registration").permitAll();
-        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/users/**").hasAnyAuthority("USER");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/user/users/**").hasAnyAuthority("USER", "/api/v1/transactionHistory");
+        http.authorizeHttpRequests().antMatchers("/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/swagger-ui/login/",
+                "/swagger-ui/api/login/",
+                "/swagger-ui/#/**",
+                "/api/auth/**",
+                "/auth/**",
+                "/**").permitAll();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

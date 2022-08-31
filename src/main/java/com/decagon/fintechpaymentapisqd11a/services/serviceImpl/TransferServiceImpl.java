@@ -1,5 +1,6 @@
 package com.decagon.fintechpaymentapisqd11a.services.serviceImpl;
 
+import com.decagon.fintechpaymentapisqd11a.enums.Transactiontype;
 import com.decagon.fintechpaymentapisqd11a.exceptions.ErrorException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.IncorrectDetailsException;
 import com.decagon.fintechpaymentapisqd11a.exceptions.UserNotFoundException;
@@ -196,6 +197,9 @@ public class TransferServiceImpl implements TransferService {
                 .destinationAccountNumber(transferRequest.getAccountNumber())
                 .destinationBank(transferRequest.getBankCode())
                 .users(user)
+                .sourceAccountNumber(wallet.getAcctNumber())
+                .transactiontype(Transactiontype.DEBIT)
+                .wallet(wallet)
                 .build();
 
         walletRepository.save(wallet);

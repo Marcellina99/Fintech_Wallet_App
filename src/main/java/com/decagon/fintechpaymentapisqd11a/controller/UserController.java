@@ -4,6 +4,8 @@ package com.decagon.fintechpaymentapisqd11a.controller;
 import com.decagon.fintechpaymentapisqd11a.dto.AuthResponse;
 import com.decagon.fintechpaymentapisqd11a.dto.LoginRequestPayload;
 import com.decagon.fintechpaymentapisqd11a.dto.RegistrationRequestDto;
+import com.decagon.fintechpaymentapisqd11a.request.ForgotPasswordRequest;
+import com.decagon.fintechpaymentapisqd11a.request.PasswordRequest;
 import com.decagon.fintechpaymentapisqd11a.response.UserResponse;
 import com.decagon.fintechpaymentapisqd11a.services.LoginService;
 import com.decagon.fintechpaymentapisqd11a.services.UsersService;
@@ -48,5 +50,15 @@ public class UserController {
     public ResponseEntity<UserResponse> getUser(){
         UserResponse userResponse = usersService.getUser();
         return new ResponseEntity<>(userResponse,HttpStatus.OK);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest){
+        return new ResponseEntity<>(loginService.generateResetToken(forgotPasswordRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestBody PasswordRequest passwordRequest, @RequestParam("token") String token){
+        return loginService.resetPassword(passwordRequest, token);
     }
 }

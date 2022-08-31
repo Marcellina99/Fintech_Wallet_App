@@ -10,6 +10,7 @@ public class Constant {
     public static final String RESOLVE_ACCOUNT_DETAILS = "https://api.flutterwave.com/v3/accounts/resolve";
 
     public static final String OTHER_BANK_TRANSFER = "https://api.flutterwave.com/v3/transfers";
+    public static final String RESET_PASSWORD_LINK = "http://localhost:3333/resetPassword?token=";
 
 
 }
